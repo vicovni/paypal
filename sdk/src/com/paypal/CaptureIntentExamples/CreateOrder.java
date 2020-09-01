@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import com.paypal.http.HttpResponse;
 import com.paypal.http.serializer.Json;
@@ -23,7 +24,8 @@ import com.paypal.orders.OrdersCreateRequest;
 import com.paypal.orders.PurchaseUnitRequest;
 import com.paypal.orders.ShippingDetail;
 
-public class CreateOrder extends PayPalClient {
+@Service
+public class CreateOrder extends PayPalClient implements ICreateOrder {
 
 	/**
 	 * Method to generate sample create order body with <b>CAPTURE</b> intent
@@ -75,6 +77,7 @@ public class CreateOrder extends PayPalClient {
 	 * @return HttpResponse<Order> response received from API
 	 * @throws IOException Exceptions from API if any
 	 */
+	@Override
 	public HttpResponse<Order> createOrder(boolean debug) throws IOException {
 		OrdersCreateRequest request = new OrdersCreateRequest();
 		request.header("prefer","return=representation");

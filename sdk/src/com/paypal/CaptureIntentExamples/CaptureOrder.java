@@ -4,12 +4,14 @@ import java.io.IOException;
 
 import com.paypal.orders.*;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import com.paypal.http.HttpResponse;
 import com.paypal.http.serializer.Json;
 import com.paypal.PayPalClient;
 
-public class CaptureOrder extends PayPalClient {
+@Service
+public class CaptureOrder extends PayPalClient implements ICaptureOrder {
 
 	/**
 	 * Creating empty body for capture request. We can set the payment source if
@@ -17,6 +19,7 @@ public class CaptureOrder extends PayPalClient {
 	 *
 	 * @return OrderRequest request with empty body
 	 */
+	@Override
 	public OrderRequest buildRequestBody() {
 		return new OrderRequest();
 	}
@@ -30,6 +33,7 @@ public class CaptureOrder extends PayPalClient {
 	 * @return HttpResponse<Order> response received from API
 	 * @throws IOException Exceptions from API if any
 	 */
+	@Override
 	public HttpResponse<Order> captureOrder(String orderId, boolean debug) throws IOException {
 		OrdersCaptureRequest request = new OrdersCaptureRequest(orderId);
 		request.requestBody(buildRequestBody());
